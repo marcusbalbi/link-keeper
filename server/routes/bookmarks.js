@@ -11,7 +11,7 @@ router.get(`${prefix}/`, function (req, res, next) {
 })
 
 router.get(`${prefix}/:id`, function (req, res, next) {
-  Bookmark.findById(req.param('id')).then((bookmark) => {
+  Bookmark.findById(req.params.id).then((bookmark) => {
     res.json({ data: bookmark })
   })
 })
@@ -21,9 +21,14 @@ router.post(`${prefix}/`, function (req, res, next) {
     res.json({ data: created })
   })
 })
+router.put(`${prefix}/:id`, function (req, res, next) {
+  Bookmark.findById(req.params.id).then(doc => {
+    doc.$set(req.body).save().then(data => res.json({ data }))
+  })
+})
 router.delete(`${prefix}/:id`, function (req, res, next) {
   Bookmark.findByIdAndDelete(req.param('id')).then((result) => {
-    res.json({ data: result })
+    res.json({ data: true })
   })
 })
 
