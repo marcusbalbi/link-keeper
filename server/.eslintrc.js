@@ -9,6 +9,12 @@ module.exports = {
     'eslint:recommended',
     'standard'
   ],
+  globals: {
+    describe: true,
+    it: true,
+    jest: true,
+    expect: true
+  },
   // add your custom rules here
   'rules': {
     'no-new': 0,
