@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const Bookmark = require('../database/Bookmark')
-
 const prefix = '/bookmarks'
 
 router.get(`${prefix}/`, function (req, res, next) {
@@ -17,7 +16,8 @@ router.get(`${prefix}/:id`, function (req, res, next) {
 })
 
 router.post(`${prefix}/`, function (req, res, next) {
-  Bookmark.create(req.body).then((created) => {
+  let { title, link, domain } = req.body
+  Bookmark.create({ title, link, domain }).then((created) => {
     res.json({ data: created })
   })
 })
