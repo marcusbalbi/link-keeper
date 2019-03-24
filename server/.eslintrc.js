@@ -13,7 +13,8 @@ module.exports = {
     describe: true,
     it: true,
     jest: true,
-    expect: true
+    expect: true,
+    beforeAll: true
   },
   // add your custom rules here
   'rules': {

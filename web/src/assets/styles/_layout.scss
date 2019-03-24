@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  flex: 1;
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.main {
+  flex: 2;
+  height: 90vh;
+  margin-bottom: 1rem;
+}
+
+.footer {
+  padding: 2rem;
+}
