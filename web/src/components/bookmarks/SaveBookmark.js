@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import request from '../../request/request'
 
 const SaveBookmark = props => {
   const [bookmark, setBookmark] = useState(() => {
@@ -9,21 +8,10 @@ const SaveBookmark = props => {
       domain: ''
     }
   })
-
-  const saveBookmark = () => {
-    request.post('/bookmarks/', {
-      ...bookmark
-    })
-    .then(() => {
-      alert('Link Salvo!')
-      setBookmark({title: '', link: '', domain: ''})
-    })
-    .catch(() => {
-      alert('falha ao Salvar Link')
-    })
-    // send to backend
+  const save = () => {
+    props.onSaveBookmark(bookmark)
+    setBookmark({ title: '', link: '', domain: '' })
   }
-
   return (
     <div className="save-bookmark">
       <form className="form" onSubmit={(e) => { e.preventDefault() }} >
@@ -43,11 +31,13 @@ const SaveBookmark = props => {
           </label>
         </div>
         <div>
-          <button onClick={() => { saveBookmark() }}>Save Bookmark</button>
+          <button onClick={save}>Save Bookmark</button>
         </div>
       </form>
     </div>
   )
 }
-
+SaveBookmark.defaultProps = {
+  onSaveBookmark: () => {}
+}
 export default SaveBookmark
