@@ -3,7 +3,7 @@ import React from 'react'
 export default () => {
   return (
     <header className="header" >
-      I'm the Header
+      <h1 className="title" >Link Keeper</h1>
     </header>
   )
 }

@@ -1,0 +1,12 @@
+.bookmarks {
+  display: flex;
+  width: 100%;
+  margin: 1rem;
+  .save-bookmarks {
+    flex: 1;
+  }
+  .list-bookmarks {
+    flex: 4;
+    border-left: 1px solid #f6e5e5;
+  }
+}

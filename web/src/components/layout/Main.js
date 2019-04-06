@@ -1,9 +1,9 @@
 import React from 'react'
-import SaveBookmark from '../../views/save-bookmark/SaveBookmark'
+import Bookmarks from '../../views/Bookmarks'
 export default () => {
   return (
     <main className="main" >
-      <SaveBookmark />
+      <Bookmarks />
     </main>
   )
 }

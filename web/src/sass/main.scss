@@ -1,9 +1,7 @@
-@import './variables';
-@import './reboot';
-@import './grid';
-@import './objects';
-
-
+@import './settings';
+@import './base';
+@import './typography';
 @import './layout';
-@import './views/SaveBookmark'
+
+@import './views/Bookmarks'
 
