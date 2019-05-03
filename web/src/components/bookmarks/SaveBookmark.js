@@ -17,17 +17,17 @@ const SaveBookmark = props => {
       <form className="form" onSubmit={(e) => { e.preventDefault() }} >
         <div className="form-control" >
           <label>
-            Title: <input className="textfield textfield-lg" value={bookmark.title} onChange={(e) => { setBookmark({...bookmark, title: e.target.value}) }}  type="text" />
+            <span>Title:</span> <input className="textfield textfield-lg" value={bookmark.title} onChange={(e) => { setBookmark({...bookmark, title: e.target.value}) }}  type="text" />
           </label>
         </div>
         <div className="form-control" >
           <label>
-            Link: <input className="textfield textfield-lg" value={bookmark.link} onChange={(e) => { setBookmark({ ...bookmark, link: e.target.value }) }}  type="text" />
+            <span>Link:</span> <input className="textfield textfield-lg" value={bookmark.link} onChange={(e) => { setBookmark({ ...bookmark, link: e.target.value }) }}  type="text" />
           </label>
         </div>
         <div className="form-control" >
           <label>
-            Domain: <input className="textfield textfield-lg" value={bookmark.domain} onChange={(e) => { setBookmark({ ...bookmark, domain: e.target.value }) }}  type="text" />
+            <span>Domain:</span><input className="textfield textfield-lg" value={bookmark.domain} onChange={(e) => { setBookmark({ ...bookmark, domain: e.target.value }) }}  type="text" />
           </label>
         </div>
         <div>
