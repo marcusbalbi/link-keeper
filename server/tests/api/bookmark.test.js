@@ -1,4 +1,3 @@
-const request = require('supertest')
 const createFakeBookmarks = require('../helpers/createFakeBookmarks')
 describe('bookmark api', () => {
   let bookmarks = null
@@ -6,7 +5,9 @@ describe('bookmark api', () => {
     bookmarks = await createFakeBookmarks(20)
   })
   it('should get all bookmarks', (done) => {
-    request(global.app).get('/bookmarks')
+    global.request
+      .get('/bookmarks')
+      .set(global.commonHeaders)
       .end((pErr, res) => {
         expect(res.status).toBe(200)
         expect(Array.isArray(res.body.data)).toBeTruthy()
@@ -14,7 +15,9 @@ describe('bookmark api', () => {
       })
   })
   it('should get a bookmark by id', (done) => {
-    request(global.app).get('/bookmarks/' + bookmarks[0]._id)
+    global.request
+      .get('/bookmarks/' + bookmarks[0]._id)
+      .set(global.commonHeaders)
       .end((pErr, res) => {
         expect(res.status).toBe(200)
         expect(res.body.data._id).toBe(bookmarks[0]._id.toString())
@@ -22,7 +25,9 @@ describe('bookmark api', () => {
       })
   })
   it('should create a new bookamark', (done) => {
-    request(global.app).post('/bookmarks/')
+    global.request
+      .post('/bookmarks/')
+      .set(global.commonHeaders)
       .send({ title: 'TESTE TITLE', link: 'http://www.google.com', domain: 'google' })
       .end((pErr, res) => {
         expect(res.status).toBe(200)
@@ -31,7 +36,9 @@ describe('bookmark api', () => {
       })
   })
   it('should update a new bookamark', (done) => {
-    request(global.app).put('/bookmarks/' + bookmarks[0]._id)
+    global.request
+      .put('/bookmarks/' + bookmarks[0]._id)
+      .set(global.commonHeaders)
       .send({ title: 'TESTE UPDATE', link: 'http://wwww.google.com', domain: 'youtube' })
       .end((pErr, res) => {
         expect(res.status).toBe(200)
@@ -40,7 +47,9 @@ describe('bookmark api', () => {
       })
   })
   it('should remove a bookmark', (done) => {
-    request(global.app).delete('/bookmarks/' + bookmarks[0]._id)
+    global.request
+      .delete('/bookmarks/' + bookmarks[0]._id)
+      .set(global.commonHeaders)
       .end((pErr, res) => {
         expect(res.status).toBe(200)
         expect(res.body.data).toBe(true)

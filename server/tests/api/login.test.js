@@ -1,4 +1,4 @@
-const request = require('supertest')
+// const request = require('supertest')
 const createFakeUser = require('../helpers/createFakeUsers')
 const jwt = require('jsonwebtoken')
 
@@ -10,7 +10,7 @@ describe('Login api', () => {
   })
   it('should login correclty', (done) => {
     const data = { login: users.data[0].login, password: users.raw[users.data[0].email].password }
-    request(global.app).post('/login')
+    global.request.post('/login')
       .send(data)
       .end((pErr, res) => {
         expect(res.status).toBe(200)
@@ -18,14 +18,6 @@ describe('Login api', () => {
         expect(data.user.email).toEqual(users.data[0].email)
         expect(data.user.login).toEqual(users.data[0].login)
         expect(data.user.password).toEqual(undefined)
-        done()
-      })
-  })
-  xit('should send ok when verify login', (done) => {
-    request(global.app).get('/bookmarks')
-      .end((pErr, res) => {
-        expect(res.status).toBe(200)
-        expect(Array.isArray(res.body.data)).toBeTruthy()
         done()
       })
   })

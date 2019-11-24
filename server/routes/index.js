@@ -1,15 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const Bookmark = require('../database/Bookmark')
-const loginRoutes = require('./login')
+const jwt = require('jsonwebtoken')
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  Bookmark.find({}).then((list) => {
-    res.json({ data: list })
-  })
+router.use((req, res, next) => {
+  const authorization = req.headers.authorization || req.query.authorization
+  req.user = jwt.verify(authorization, process.env.LINK_ENCRYPT_KEY)
+  next()
 })
-
-router.use(loginRoutes)
+router.get('/', function (req, res, next) {
+  res.json({ data: true })
+})
 
 module.exports = router
