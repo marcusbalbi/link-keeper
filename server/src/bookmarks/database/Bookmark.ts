@@ -8,10 +8,10 @@ const schema = new mongoose.Schema(
     },
     link: {
       type: String,
-      set: (value : string) => {
+      set: (value: string) => {
         return crypto.AES.encrypt(value, process.env.LINK_ENCRYPT_KEY);
       },
-      get: (value : string) => {
+      get: (value: string) => {
         return crypto.AES.decrypt(value, process.env.LINK_ENCRYPT_KEY).toString(crypto.enc.Utf8);
       },
     },
