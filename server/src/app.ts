@@ -1,10 +1,10 @@
-const createError = require('http-errors')
-const express = require('express')
-const cookieParser = require('cookie-parser')
+import express from 'express';
+import createError from 'http-errors';
+import cookieParser from 'cookie-parser'
+import login from './passport/http/login'
+import bookmarks from './bookmarks/http/bookmarks'
+import indexRouter from './common/http/index'
 const logger = require('morgan')
-const indexRouter = require('./routes/index')
-const bookmarks = require('./routes/bookmarks')
-const login = require('./routes/login')
 const cors = require('cors')
 
 const app = express()
