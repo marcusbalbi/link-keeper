@@ -2,7 +2,7 @@
 const dotenv = require('dotenv')
 dotenv.load()
 
-const { connect } = require('../database/connection')
+const { connect } = require('./common/database/connection')
 connect()
 
 /**

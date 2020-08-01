@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/link-keeper-server",
+    "start": "ts-node-dev bin/link-keeper-server --respawn --transpalyOnly",
     "test": "jest ./tests"
   },
   "dependencies": {
@@ -21,7 +21,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.11",
     "morgan": "~1.9.0",
-    "npm": "^6.9.0"
+    "npm": "^6.9.0",
+    "ts-node-dev": "^1.0.0-pre.56",
+    "typescript": "^3.9.7"
   },
   "devDependencies": {
     "eslint": "^5.13.0",

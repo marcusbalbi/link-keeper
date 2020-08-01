@@ -1,5 +1,5 @@
 // const request = require('supertest')
-const createFakeUser = require('../helpers/createFakeUsers')
+const createFakeUser = require('../../../common/tests/helpers/createFakeUsers')
 const jwt = require('jsonwebtoken')
 
 describe('Login api', () => {

@@ -1,4 +1,4 @@
-const createFakeBookmarks = require('../helpers/createFakeBookmarks')
+const createFakeBookmarks = require('../../../../tests/helpers/createFakeBookmarks')
 describe('bookmark api', () => {
   let bookmarks = null
   beforeAll(async () => {
