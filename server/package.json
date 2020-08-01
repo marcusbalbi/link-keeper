@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "ts-node-dev src/link-keeper-server --respawn --transpalyOnly",
+    "start": "ts-node-dev -r tsconfig-paths/register src/link-keeper-server --respawn --transpalyOnly",
     "test": "jest",
     "lint": "eslint ./src"
   },
@@ -25,6 +25,7 @@
     "morgan": "~1.9.0",
     "npm": "^6.9.0",
     "ts-node-dev": "^1.0.0-pre.56",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.7",
     "typescript-eslint": "0.0.1-alpha.0"
   },

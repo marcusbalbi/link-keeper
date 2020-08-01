@@ -1,5 +1,5 @@
 import express from 'express';
-import Bookmark from '../database/Bookmark';
+import Bookmark from '@bookmarks/database/Bookmark';
 
 const prefix = '/bookmarks';
 const router = express.Router();

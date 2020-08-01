@@ -3,10 +3,11 @@
     "module": "commonjs",
     "allowJs": true,
     "outDir": "./dist",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "common": ["/common"],
-      "bookmarks": ["/bookmarks"]
+      "@common/*": ["./src/common/*"],
+      "@bookmarks/*": ["./src/bookmarks/*"],
+      "@passaport/*": ["./src/passaport/*"]
     },
     "rootDirs": [
       "./src/**/"
