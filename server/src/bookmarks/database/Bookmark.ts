@@ -1,24 +1,27 @@
-import mongoose from 'mongoose'
-import crypto from 'crypto-js'
+import mongoose from 'mongoose';
+import crypto from 'crypto-js';
 
-const schema = new mongoose.Schema({
-  title: {
-    type: String
-  },
-  link: {
-    type: String,
-    set: value => {
-      return crypto.AES.encrypt(value, process.env.LINK_ENCRYPT_KEY)
+const schema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
     },
-    get: value => {
-      return crypto.AES.decrypt(value, process.env.LINK_ENCRYPT_KEY).toString(crypto.enc.Utf8)
-    }
+    link: {
+      type: String,
+      set: (value) => {
+        return crypto.AES.encrypt(value, process.env.LINK_ENCRYPT_KEY);
+      },
+      get: (value) => {
+        return crypto.AES.decrypt(value, process.env.LINK_ENCRYPT_KEY).toString(crypto.enc.Utf8);
+      },
+    },
+    domain: {
+      type: String,
+    },
   },
-  domain: {
-    type: String
-  }
-}, { toJSON: { getters: true } })
+  { toJSON: { getters: true } },
+);
 
-const Bookmark = mongoose.model('bookmarks', schema)
+const Bookmark = mongoose.model('bookmarks', schema);
 
-export default Bookmark
+export default Bookmark;

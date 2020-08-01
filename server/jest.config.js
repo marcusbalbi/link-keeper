@@ -1,7 +1,7 @@
 module.exports = {
-  rootDir: './',
+  rootDir: './src',
   testEnvironment: 'node',
-  globalSetup: './tests/globalSetup.js',
-  setupTestFrameworkScriptFile: './tests/setup.js',
+  globalSetup: './common/tests/globalSetup.js',
+  setupTestFrameworkScriptFile: './common/tests/setup.ts',
   coverageDirectory: './tests/coverage'
 }
