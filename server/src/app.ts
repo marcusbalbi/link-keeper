@@ -16,11 +16,11 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 // UNPROTECTED ROUTES
-app.use(login)
+// app.use(login)
+app.use(bookmarks)
 
 // PROTECTED ROUTES
 app.use(indexRouter)
-app.use(bookmarks)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

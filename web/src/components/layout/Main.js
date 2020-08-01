@@ -3,7 +3,7 @@ import Bookmarks from '../../views/Bookmarks'
 import Login from '../../views/Login'
 
 const renderContent = () => {
-  const user = null
+  const user = {}
   if (user) {
     return <Bookmarks />
   }

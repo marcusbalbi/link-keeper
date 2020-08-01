@@ -24,7 +24,7 @@ router.post(`${prefix}/`, function (req, res, next) {
 })
 router.put(`${prefix}/:id`, function (req, res, next) {
   Bookmark.findById(req.params.id).then(doc => {
-    doc.$set(req.body).save().then(data => res.json({ data }))
+    doc.set(req.body).save().then(data => res.json({ data }))
   })
 })
 router.delete(`${prefix}/:id`, function (req, res, next) {
