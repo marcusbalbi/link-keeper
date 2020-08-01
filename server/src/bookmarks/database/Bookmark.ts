@@ -1,5 +1,5 @@
-const { mongoose } = require('./connection')
-const crypto = require('crypto-js')
+import mongoose from 'mongoose'
+import crypto from 'crypto-js'
 
 const schema = new mongoose.Schema({
   title: {
@@ -17,8 +17,8 @@ const schema = new mongoose.Schema({
   domain: {
     type: String
   }
-}, { toJSON: { getters: true, setters: true } })
+}, { toJSON: { getters: true } })
 
 const Bookmark = mongoose.model('bookmarks', schema)
 
-module.exports = Bookmark
+export default Bookmark

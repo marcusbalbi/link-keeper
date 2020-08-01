@@ -1,7 +1,8 @@
-const express = require('express')
-const router = express.Router()
-const Bookmark = require('../database/Bookmark')
+import express from 'express'
+import Bookmark from '../database/Bookmark'
+
 const prefix = '/bookmarks'
+const router = express.Router();
 
 router.get(`${prefix}/`, function (req, res, next) {
   Bookmark.find({}).then((list) => {
@@ -32,4 +33,4 @@ router.delete(`${prefix}/:id`, function (req, res, next) {
   })
 })
 
-module.exports = router
+export default router
