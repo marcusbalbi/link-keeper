@@ -1,9 +1,9 @@
-const faker = require('faker')
+const faker = require('faker');
 module.exports = async (pModel, pGenerator, amount) => {
-  let results = []
+  let results = [];
   for (let i = 0; i < amount; i++) {
-    let data = pGenerator(faker)
-    results.push(await pModel.create(data))
+    let data = pGenerator(faker);
+    results.push(await pModel.create(data));
   }
-  return results
-}
+  return results;
+};

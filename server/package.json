@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "ts-node-dev src/link-keeper-server --respawn --transpalyOnly",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ./src"
   },
   "dependencies": {
     "babel-eslint": "^10.0.1",
