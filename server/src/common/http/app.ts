@@ -1,9 +1,9 @@
 import express from 'express';
 import createError from 'http-errors';
 import cookieParser from 'cookie-parser';
-import login from './passport/http/login';
-import bookmarks from './bookmarks/http/bookmarks';
-import indexRouter from './common/http/index';
+import login from '../../passport/http/login';
+import bookmarks from '../../bookmarks/http/bookmarks';
+import indexRouter from './index';
 const logger = require('morgan');
 const cors = require('cors');
 

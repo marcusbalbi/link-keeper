@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import app from './app';
+import app from './common/http/app';
 import dotenv from 'dotenv';
 dotenv.load();
 
-import { connect } from './common/database/connection';
+import connect from './common/database/connect';
 connect();
 
 /**
