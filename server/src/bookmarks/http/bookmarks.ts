@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Response } from 'express';
 import Bookmark from '@bookmarks/database/Bookmark';
 
 const prefix = '/bookmarks';
