@@ -3,4 +3,4 @@ image: docker:stable
 build-docker-backend:
   stage: build
   script:
-    - docker build -t marcusbalbi/link-keeper-server ./server
+    - docker build -f .docker/server.dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper .
