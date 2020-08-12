@@ -3,5 +3,4 @@ image: docker:stable
 build-docker-backend:
   stage: build
   script:
-    - echo "Hello world!"
-    - echo date
+    - docker build -t marcusbalbi/link-keeper-server ./server
