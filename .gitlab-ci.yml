@@ -9,6 +9,8 @@ before_script:
 
 build-docker-backend:
   stage: build
+  tags:
+    - link-keeper-executor
   script:
     - docker build -f .docker/server.dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper .
     - docker tag registry.gitlab.com/marcusbalbi/link-keeper registry.gitlab.com/marcusbalbi/link-keeper:latest
