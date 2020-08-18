@@ -25,19 +25,19 @@ build-docker-backend:
 
 build-database:
   services:
-    - docker:dind
+    - docker:19.03.0-dind
     - mongo:latest
-    variables:
-      MONGO_HOST: $MONGO_HOST
-      MONGO_PORT: $MONGO_PORT
-      MONGO_DATABASE_NAME: $MONGO_DATABASE_NAME
-      MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
-      MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
-    stage: build
-    image: registry.gitlab.com/marcusbalbi/link-keeper:latest
-    tags:
-    - executor-tarefas
-    dependencies:
-    - build-docker-backend
-    script:
-    - mongo --version
+  variables:
+    MONGO_HOST: $MONGO_HOST
+    MONGO_PORT: $MONGO_PORT
+    MONGO_DATABASE_NAME: $MONGO_DATABASE_NAME
+    MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
+    MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
+  stage: build
+  image: registry.gitlab.com/marcusbalbi/link-keeper:latest
+  tags:
+  - executor-tarefas
+  dependencies:
+  - build-docker-backend
+  script:
+  - mongo --version
