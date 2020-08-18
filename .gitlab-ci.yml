@@ -1,6 +1,6 @@
 image: docker:19.03.0
 
-install_dependencies:
+install-dependencies:
   image: node:latest
   stage: build
   cache:
@@ -16,7 +16,10 @@ lint:
   tags:
     - link-keeper-executor
   script:
-    - npm install
+    - eslint ./src
+  dependencies: 
+    - install-dependencies
+
 build-docker:
   services:
     - docker:19.03.0-dind
