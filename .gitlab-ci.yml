@@ -5,6 +5,7 @@ services:
 
 before_script:
 - docker info
+- docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
 
 build-docker-backend:
   stage: build
