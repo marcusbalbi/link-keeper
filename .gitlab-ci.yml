@@ -1,7 +1,7 @@
 image: docker:stable-dind
 
 services:
-- docker:dind
+- docker:18.09.7-dind
 
 before_script:
 - docker info
