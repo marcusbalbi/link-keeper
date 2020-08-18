@@ -1,8 +1,16 @@
 image: docker:19.03.0
 
-install-dependencies:
+stages:
+  - install
+  - build
+  - lint
+  - test
+  - deploy
+
+
+install_dependencies:
   image: node:latest
-  stage: build
+  stage: install
   cache:
     paths:
     - node_modules/
@@ -10,15 +18,16 @@ install-dependencies:
     - link-keeper-executor
   script:
     - npm install
+
 lint:
   image: node:latest
-  stage: build
+  stage: lint
   tags:
     - link-keeper-executor
   script:
     - eslint ./src
   dependencies: 
-    - install-dependencies
+    - install_dependencies
 
 build-docker:
   services:
