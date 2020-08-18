@@ -8,6 +8,8 @@ services:
     restart: always
     env_file:
     - ./server/.env
+    volumes: 
+      - "./mongodata:/data/db"
   server:
     build:
       dockerfile: ./.docker/server.dockerfile
