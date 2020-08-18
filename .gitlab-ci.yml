@@ -1,17 +1,43 @@
 image: docker:19.03.0
 
-services:
-- docker:19.03.0-dind
-
-before_script:
-- docker info
-- docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
+stages:
+  - foundation
+  - build
+  - test
+  - deploy
 
 build-docker-backend:
-  stage: build
+  services:
+    - docker:19.03.0-dind
+  before_script:
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
+  stage: foundation
+  variables:
+    PORT: $PORT
+    LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
   tags:
     - link-keeper-executor
   script:
     - docker build -f .docker/server.dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper .
     - docker tag registry.gitlab.com/marcusbalbi/link-keeper registry.gitlab.com/marcusbalbi/link-keeper:latest
     - docker push registry.gitlab.com/marcusbalbi/link-keeper:latest
+
+build-database:
+  services:
+    - docker:dind
+    - mongo:latest
+    variables:
+      MONGO_HOST: $MONGO_HOST
+      MONGO_PORT: $MONGO_PORT
+      MONGO_DATABASE_NAME: $MONGO_DATABASE_NAME
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
+    stage: build
+    image: registry.gitlab.com/marcusbalbi/link-keeper:latest
+    tags:
+    - executor-tarefas
+    dependencies:
+    - build-docker-backend
+    script:
+    - mongo --version
