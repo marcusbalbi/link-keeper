@@ -11,3 +11,5 @@ build-docker-backend:
   stage: build
   script:
     - docker build -f .docker/server.dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper .
+    - docker tag link-keeper marcusbalbi/link-keeper:latest
+    - docker push marcusbalbi/link-keeper:latest
