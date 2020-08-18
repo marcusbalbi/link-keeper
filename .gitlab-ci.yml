@@ -1,7 +1,7 @@
-image: docker:stable-dind
+image: docker:19.03.0
 
 services:
-- docker:18.09.7-dind
+- docker:19.03.0-dind
 
 before_script:
 - docker info
