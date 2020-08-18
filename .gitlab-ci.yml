@@ -1,22 +1,33 @@
 image: docker:19.03.0
 
-stages:
-  - foundation
-  - build
-  - test
-  - deploy
-
-build-docker-backend:
+install_dependencies:
+  image: node:latest
+  stage: build
   cache:
     paths:
     - node_modules/
+  tags:
+    - link-keeper-executor
+  script:
+    - npm install
+lint:
+  image: node:latest
+  stage: build
+  cache:
+    paths:
+    - node_modules/
+  tags:
+    - link-keeper-executor
+  script:
+    - npm install
+build-docker:
   services:
     - docker:19.03.0-dind
     - mongo:latest
   before_script:
     - docker info
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
-  stage: foundation
+  stage: build
   variables:
     PORT: $PORT
     LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
