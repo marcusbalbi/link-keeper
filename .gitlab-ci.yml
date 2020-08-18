@@ -36,7 +36,7 @@ build-database:
   stage: build
   image: registry.gitlab.com/marcusbalbi/link-keeper:latest
   tags:
-  - executor-tarefas
+  - link-keeper-executor
   dependencies:
   - build-docker-backend
   script:
