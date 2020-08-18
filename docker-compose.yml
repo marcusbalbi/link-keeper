@@ -7,12 +7,12 @@ services:
       - link_keeper_network
     restart: always
     env_file:
-    - ./server/.env
+    - ./.env
     volumes: 
       - "./mongodata:/data/db"
   server:
     build:
-      dockerfile: ./.docker/server.dockerfile
+      dockerfile: ./.docker/Dockerfile
       context: .
     image: marcusbalbi/link_keeper_server
     container_name: link_keeper_server
@@ -21,12 +21,12 @@ services:
     ports:
       - "3008:3009"
     env_file:
-    - ./server/.env
+    - ./.env
     environment:
       - TZ=America/Sao_Paulo
       - DEBIAN_FRONTEND=noninteractive
     volumes:
-      - "./server:/var/www/app"
+      - "./:/var/www/app"
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
     depends_on: 
