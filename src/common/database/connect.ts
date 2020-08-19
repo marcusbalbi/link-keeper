@@ -15,6 +15,7 @@ const connect = (
       hasAuth && 'authSource=admin'
     }`,
   );
+  console.log(conUrl);
   return mongoose.connect(conUrl, {
     useNewUrlParser: true,
   });
