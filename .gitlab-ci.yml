@@ -38,7 +38,7 @@ integration_test:
     LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
     MONGO_HOST: $MONGO_HOST
     MONGO_PORT: $MONGO_PORT
-    MONGO_DATABASE_NAME: link_keeper_integration_test
+    MONGO_DATABASE_NAME: 'link_keeper_integration_test'
   tags:
     - link-keeper-executor
   script:

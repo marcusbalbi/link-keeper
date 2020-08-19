@@ -12,7 +12,7 @@ const connect = (
   }
   conUrl = conUrl.concat(
     `${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${baseName}${
-      hasAuth && 'authSource=admin'
+      hasAuth ? 'authSource=admin' : ''
     }`,
   );
   console.log(conUrl);
