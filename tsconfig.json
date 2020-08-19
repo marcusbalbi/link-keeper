@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "allowJs": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@common/*": ["./src/common/*"],
+      "@bookmarks/*": ["./src/bookmarks/*"],
+      "@passaport/*": ["./src/passaport/*"]
+    },
+    "rootDirs": [
+      "./src/**/"
+    ],
+    "esModuleInterop": true,
+    "experimentalDecorators": true
+  }
+}
