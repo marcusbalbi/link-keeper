@@ -4,15 +4,15 @@ stages:
   - build
   - lint
   - test
-  - deploy
+  - docker
 
-
+cache:
+  paths:
+  - node_modules/
+  
 install_dependencies:
   image: node:latest
   stage: build
-  cache:
-    paths:
-    - node_modules/
   tags:
     - link-keeper-executor
   script:
@@ -33,9 +33,8 @@ lint:
 #    - docker:19.03.0-dind
 #    - mongo:latest
 #  before_script:
-#    - docker info
 #    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
-#  stage: deploy
+#  stage: docker
 #  variables:
 #    PORT: $PORT
 #    LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
