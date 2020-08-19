@@ -1,7 +1,6 @@
 image: docker:19.03.0
 
 stages:
-  - install
   - build
   - lint
   - test
@@ -29,14 +28,14 @@ lint:
   dependencies: 
     - install_dependencies
 
-build-docker:
+build-docker-image:
   services:
     - docker:19.03.0-dind
     - mongo:latest
   before_script:
     - docker info
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
-  stage: build
+  stage: deploy
   variables:
     PORT: $PORT
     LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
