@@ -24,7 +24,7 @@ lint:
   tags:
     - link-keeper-executor
   script:
-    - eslint ./src
+    - npm run lint
   dependencies: 
     - install_dependencies
 
