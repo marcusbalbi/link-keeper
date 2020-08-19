@@ -28,6 +28,24 @@ lint:
   dependencies: 
     - install_dependencies
 
+integration_test:
+  services:
+    - mongo:latest
+  image: node:latest
+  stage: test
+  variables:
+    PORT: $PORT
+    LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
+    MONGO_HOST: $MONGO_HOST
+    MONGO_PORT: $MONGO_PORT
+    MONGO_DATABASE_NAME: link_keeper_integration_test
+  tags:
+    - link-keeper-executor
+  script:
+    - npm run test
+  dependencies: 
+    - install_dependencies
+
 #build-docker-image:
 #  services:
 #    - docker:19.03.0-dind
