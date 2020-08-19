@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
 
 const connect = (
   baseName: string = process.env.MONGO_DATABASE_NAME,

@@ -1,10 +1,10 @@
 import Bookmark from '../database/Bookmark';
 
 describe('bookmarks api', () => {
-  it('should returl all bookmarks', (done) => {
+  it('should return all bookmarks', (done) => {
     Bookmark.find({}).then((res) => {
       console.log(res);
-      expect(1).toBe(1);
+      expect(res.length).toBe(0);
       done();
     });
   });
