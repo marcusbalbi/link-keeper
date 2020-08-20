@@ -65,29 +65,30 @@ build-docker-image:
     - docker push registry.gitlab.com/marcusbalbi/link-keeper:latest
 
 deploy-local:
+  before_script:
+    - ssh balbi@172.17.0.1 'mkdir -p projetos/deploy/link-keeper/server; /usr/bin/docker volume create link_keeper_volume; export PORT=$PORT;LINK_ENCRYPT_KEY=$LINK_ENCRYPT_KEY;MONGO_HOST=$MONGO_HOST;MONGO_PORT=$MONGO_PORT;MONGO_DATABASE_NAME=$MONGO_DATABASE_NAME'
   stage: deploy
   tags:
     - link-keeper-executor-deploy
   script:
     - tar cfz server.tgz *
-    - ssh balbi@172.17.0.1 'mkdir -p projetos/deploy/link-keeper/server; /usr/bin/docker volume create link_keeper_volume'
     - scp server.tgz balbi@172.17.0.1:projetos/deploy/link-keeper/server
-    - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; tar xfz server.tgz; export PORT=$PORT;LINK_ENCRYPT_KEY=$LINK_ENCRYPT_KEY;MONGO_HOST=$MONGO_HOST;MONGO_PORT=$MONGO_PORT;MONGO_DATABASE_NAME=$MONGO_DATABASE_NAME ;/usr/bin/docker-compose up -d'
+    - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; tar xfz server.tgz; /usr/bin/docker-compose up -d'
   dependencies: 
     - build-docker-image
 
-# notification-success:
-#     stage: notification
-#     tags:
-#     - link-keeper-executor-deploy
-#     when: on_success
-#     script:
-#     - echo "tudo deu certo"
+notification-success:
+    stage: notification
+    tags:
+    - link-keeper-executor-deploy
+    when: on_success
+    script:
+    - echo "tudo deu certo"
 
-# notification-failed:
-#     stage: notification
-#     tags:
-#     - link-keeper-executor-deploy
-#     when: on_failure
-#     script:
-#     - echo "deu errado"
+notification-failed:
+    stage: notification
+    tags:
+    - link-keeper-executor-deploy
+    when: on_failure
+    script:
+    - echo "deu errado"
