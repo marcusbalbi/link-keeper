@@ -48,29 +48,30 @@ install_dependencies:
 #   dependencies: 
 #     - install_dependencies
 
-# build-docker-image:
-#   services:
-#     - docker:19.03.0-dind
-#   before_script:
-#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
-#   stage: docker
-#   variables:
-#     PORT: $PORT
-#     LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
-#   dependencies: 
-#     - install_dependencies
-#   tags:
-#     - link-keeper-executor
-#   script:
-#     - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper-server .
-#     - docker tag registry.gitlab.com/marcusbalbi/link-keeper-server registry.gitlab.com/marcusbalbi/link-keeper-server:latest
-#     - docker push registry.gitlab.com/marcusbalbi/link-keeper-server:latest
+build-docker-image:
+  services:
+    - docker:19.03.0-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
+  stage: docker
+  variables:
+    PORT: $PORT
+    LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
+  dependencies: 
+    - install_dependencies
+  tags:
+    - link-keeper-executor
+  script:
+    - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper-server .
+    - docker tag registry.gitlab.com/marcusbalbi/link-keeper-server registry.gitlab.com/marcusbalbi/link-keeper-server:latest
+    - docker push registry.gitlab.com/marcusbalbi/link-keeper-server:latest
 
 deploy-local:
   stage: deploy
   tags:
     - link-keeper-executor-deploy
   script:
+    - ls -la
     - tar cfz server.tgz * .env.example
     - ssh balbi@172.17.0.1 'mkdir -p projetos/deploy/link-keeper/server; /usr/bin/docker volume create link_keeper_volume'
     - scp server.tgz balbi@172.17.0.1:projetos/deploy/link-keeper/server
