@@ -5,9 +5,9 @@ services:
     networks: 
       - link_keeper_network
     environment: 
-      - MONGO_HOST
-      - MONGO_PORT
-      - MONGO_DATABASE_NAME
+      - MONGO_HOST=$MONGO_HOST
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DATABASE_NAME=link-keeper
     volumes: 
       - "link_keeper_volume:/data/db"
   server:
