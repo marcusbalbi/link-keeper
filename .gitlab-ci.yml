@@ -5,6 +5,7 @@ stages:
   - lint
   - test
   - docker
+  - deploy
   - notification
 
 cache:
@@ -43,35 +44,36 @@ integration_test:
   tags:
     - link-keeper-executor
   script:
-    - echo $CI_JOB_STAGE # calls a predefined variable
-    - echo $LINK_ENCRYPT_KEY # calls a custom variable of type `env_var`
-    - echo $MONGO_HOST # calls a custom variable of type `file` that contains the path to the temp file
-    - echo $MONGO_PORT # the temp file itself contains the variable value
-
+    - npm run test
   dependencies: 
     - install_dependencies
 
-#build-docker-image:
-#  services:
-#    - docker:19.03.0-dind
-#    - mongo:latest
-#  before_script:
-#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
-#  stage: docker
-#  variables:
-#    PORT: $PORT
-#    LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
-#    MONGO_HOST: $MONGO_HOST
-#    MONGO_PORT: $MONGO_PORT
-#    MONGO_DATABASE_NAME: $MONGO_DATABASE_NAME
-#    MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
-#    MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
-#  tags:
-#    - link-keeper-executor
-#  script:
-#    - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper-server .
-#    - docker tag registry.gitlab.com/marcusbalbi/link-keeper-server registry.gitlab.com/marcusbalbi/link-keeper-server:latest
-#    - docker push registry.gitlab.com/marcusbalbi/link-keeper-server:latest
+build-docker-image:
+  services:
+    - docker:19.03.0-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
+  stage: docker
+  variables:
+    PORT: $PORT
+    LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
+  dependencies: 
+    - install_dependencies
+  tags:
+    - link-keeper-executor
+  script:
+    - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper-server .
+    - docker tag registry.gitlab.com/marcusbalbi/link-keeper-server registry.gitlab.com/marcusbalbi/link-keeper-server:latest
+    - docker push registry.gitlab.com/marcusbalbi/link-keeper-server:latest
+
+deploy-local:
+  stage: deploy
+  tags:
+    - link-keeper-executor-deploy
+  script:
+    - echo "tudo deu certo"
+  dependencies: 
+    - install_dependencies
 
 notification-success:
     stage: notification
