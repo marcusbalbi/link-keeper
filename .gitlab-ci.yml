@@ -5,6 +5,7 @@ stages:
   - lint
   - test
   - docker
+  - notification
 
 cache:
   paths:
@@ -36,7 +37,7 @@ integration_test:
   variables:
     PORT: $PORT
     LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
-    MONGO_HOST: 'mongo'
+    MONGO_HOST: $MONGO_HOST
     MONGO_PORT: $MONGO_PORT
     MONGO_DATABASE_NAME: 'link_keeper_integration_test'
   tags:
@@ -67,3 +68,19 @@ integration_test:
 #    - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper-server .
 #    - docker tag registry.gitlab.com/marcusbalbi/link-keeper-server registry.gitlab.com/marcusbalbi/link-keeper-server:latest
 #    - docker push registry.gitlab.com/marcusbalbi/link-keeper-server:latest
+
+notification-success:
+    stage: notification
+    tags:
+    - link-keeper-executor-deploy
+    when: on_success
+    script:
+    - echo "tudo deu certo"
+
+notification-failed:
+    stage: notification
+    tags:
+    - link-keeper-executor-deploy
+    when: on_failure
+    script:
+    - echo "deu errado"
