@@ -11,10 +11,7 @@ services:
     volumes: 
       - "./mongodata:/data/db"
   server:
-    build:
-      dockerfile: ./.docker/Dockerfile
-      context: .
-    image: marcusbalbi/link_keeper_server
+    image: registry.gitlab.com/marcusbalbi/link-keeper-server
     container_name: link_keeper_server
     networks: 
       - link_keeper_network
