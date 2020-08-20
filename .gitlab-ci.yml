@@ -69,7 +69,7 @@ install_dependencies:
 deploy-local:
   stage: deploy
   tags:
-    - link-keeper-executor-deploy
+    - link-keeper-executor
   script:
     - tar cfz server.tgz * .env.example
     - ssh balbi@172.17.0.1 'mkdir -p projetos/deploy/link-keeper/server; /usr/bin/docker volume create link_keeper_volume'
