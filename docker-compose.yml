@@ -5,7 +5,6 @@ services:
     container_name: link_keeper_mongodb
     networks: 
       - link_keeper_network
-    restart: always
     env_file:
     - ./.env
     volumes: 
