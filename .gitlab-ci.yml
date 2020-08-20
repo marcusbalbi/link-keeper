@@ -63,8 +63,8 @@ build-docker-image:
     - link-keeper-executor
   script:
     - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper-server .
-    - docker tag registry.gitlab.com/marcusbalbi/link-keeper-server registry.gitlab.com/marcusbalbi/link-keeper-server:latest
-    - docker push registry.gitlab.com/marcusbalbi/link-keeper-server:latest
+    - docker tag registry.gitlab.com/marcusbalbi/link-keeper-server registry.gitlab.com/marcusbalbi/link-keeper:latest
+    - docker push registry.gitlab.com/marcusbalbi/link-keeper:latest
 
 deploy-local:
   stage: deploy
