@@ -72,7 +72,7 @@ deploy-local:
     - link-keeper-executor-deploy
   script:
     - cp .env.example .env
-    - tar cfz server.tgz *
+    - tar cfz server.tgz .
     - ssh balbi@172.17.0.1 'mkdir -p projetos/deploy/link-keeper/server'
     - scp server.tgz balbi@172.17.0.1:projetos/deploy/link-keeper/server
     - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; tar xfz server.tgz; /usr/bin/docker-compose up -d'
