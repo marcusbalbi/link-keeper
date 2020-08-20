@@ -30,3 +30,6 @@ services:
 networks:
   link_keeper_network:
     driver: bridge
+volumes:
+  link_keeper_volume:
+    driver: local
