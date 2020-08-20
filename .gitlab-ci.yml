@@ -72,7 +72,7 @@ deploy-local:
     - tar cfz server.tgz *
     - ssh balbi@172.17.0.1 'mkdir -p projetos/deploy/link-keeper/server; /usr/bin/docker volume create link_keeper_volume'
     - scp server.tgz balbi@172.17.0.1:projetos/deploy/link-keeper/server
-    - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; tar xfz server.tgz; export MONGO_HOST=$MONGO_HOST;MONGO_PORT=$MONGO_PORT;MONGO_DATABASE_NAME=$MONGO_DATABASE_NAME ;/usr/bin/docker-compose up -d'
+    - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; tar xfz server.tgz; export PORT=$PORT;LINK_ENCRYPT_KEY=$LINK_ENCRYPT_KEY;MONGO_HOST=$MONGO_HOST;MONGO_PORT=$MONGO_PORT;MONGO_DATABASE_NAME=$MONGO_DATABASE_NAME ;/usr/bin/docker-compose up -d'
   dependencies: 
     - build-docker-image
 
