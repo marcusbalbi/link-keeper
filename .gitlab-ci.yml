@@ -71,7 +71,6 @@ deploy-local:
   tags:
     - link-keeper-executor-deploy
   script:
-    - ls -la
     - tar cfz server.tgz * .env.example
     - ssh balbi@172.17.0.1 'mkdir -p projetos/deploy/link-keeper/server; /usr/bin/docker volume create link_keeper_volume'
     - scp server.tgz balbi@172.17.0.1:projetos/deploy/link-keeper/server

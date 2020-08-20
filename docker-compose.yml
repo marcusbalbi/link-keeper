@@ -10,7 +10,7 @@ services:
     volumes: 
       - "link_keeper_volume:/data/db"
   server:
-    image: registry.gitlab.com/marcusbalbi/link-keeper
+    image: registry.gitlab.com/marcusbalbi/link-keeper:latest
     container_name: link_keeper_server
     networks: 
       - link_keeper_network
