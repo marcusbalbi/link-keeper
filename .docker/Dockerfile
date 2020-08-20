@@ -5,7 +5,7 @@ WORKDIR /var/www/app
 # If you are building your code for production
 COPY ./package*.json ./
 
-RUN npm ci --only=production
+RUN npm ci
 # Bundle app source
 COPY ./ .
 
