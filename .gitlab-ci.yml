@@ -12,23 +12,23 @@ cache:
   paths:
   - node_modules/
   
-install_dependencies:
-  image: node:latest
-  stage: build
-  tags:
-    - link-keeper-executor
-  script:
-    - npm install
+# install_dependencies:
+#   image: node:latest
+#   stage: build
+#   tags:
+#     - link-keeper-executor
+#   script:
+#     - npm install
 
-lint:
-  image: node:latest
-  stage: lint
-  tags:
-    - link-keeper-executor
-  script:
-    - npm run lint
-  dependencies: 
-    - install_dependencies
+# lint:
+#   image: node:latest
+#   stage: lint
+#   tags:
+#     - link-keeper-executor
+#   script:
+#     - npm run lint
+#   dependencies: 
+#     - install_dependencies
 
 # integration_test:
 #   services:
@@ -81,18 +81,18 @@ deploy-local:
   # dependencies: 
   #   - build-docker-image
 
-notification-success:
-    stage: notification
-    tags:
-    - link-keeper-executor-deploy
-    when: on_success
-    script:
-    - echo "tudo deu certo"
+# notification-success:
+#     stage: notification
+#     tags:
+#     - link-keeper-executor-deploy
+#     when: on_success
+#     script:
+#     - echo "tudo deu certo"
 
-notification-failed:
-    stage: notification
-    tags:
-    - link-keeper-executor-deploy
-    when: on_failure
-    script:
-    - echo "deu errado"
+# notification-failed:
+#     stage: notification
+#     tags:
+#     - link-keeper-executor-deploy
+#     when: on_failure
+#     script:
+#     - echo "deu errado"
