@@ -43,7 +43,11 @@ integration_test:
   tags:
     - link-keeper-executor
   script:
-    - npm run test
+    - echo $CI_JOB_STAGE # calls a predefined variable
+    - echo $LINK_ENCRYPT_KEY # calls a custom variable of type `env_var`
+    - echo $MONGO_HOST # calls a custom variable of type `file` that contains the path to the temp file
+    - echo $MONGO_PORT # the temp file itself contains the variable value
+
   dependencies: 
     - install_dependencies
 
