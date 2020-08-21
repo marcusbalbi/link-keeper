@@ -12,23 +12,23 @@ cache:
   paths:
   - node_modules/
   
-# install_dependencies:
-#   image: node:latest
-#   stage: build
-#   tags:
-#     - link-keeper-executor
-#   script:
-#     - npm install
+install_dependencies:
+  image: node:latest
+  stage: build
+  tags:
+    - link-keeper-executor
+  script:
+    - npm install
 
-# lint:
-#   image: node:latest
-#   stage: lint
-#   tags:
-#     - link-keeper-executor
-#   script:
-#     - npm run lint
-#   dependencies: 
-#     - install_dependencies
+lint:
+  image: node:latest
+  stage: lint
+  tags:
+    - link-keeper-executor
+  script:
+    - npm run lint
+  dependencies: 
+    - install_dependencies
 
 # integration_test:
 #   services:
@@ -62,7 +62,7 @@ build-docker-image:
   tags:
     - link-keeper-executor
   script:
-    - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper-server .
+    - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper .
     - docker tag registry.gitlab.com/marcusbalbi/link-keeper-server registry.gitlab.com/marcusbalbi/link-keeper:latest
     - docker push registry.gitlab.com/marcusbalbi/link-keeper:latest
 
