@@ -7,4 +7,9 @@ export default {
       res.json({ data: list });
     });
   },
+  show(req: Request, res: Response) {
+    Bookmark.findById(req.params.id).then((bookmark) => {
+      res.json({ data: bookmark });
+    });
+  },
 };

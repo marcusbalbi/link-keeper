@@ -7,11 +7,7 @@ const router = express.Router();
 
 router.get(`${prefix}/`, BookmarksController.index);
 
-router.get(`${prefix}/:id`, function (req, res, next) {
-  Bookmark.findById(req.params.id).then((bookmark) => {
-    res.json({ data: bookmark });
-  });
-});
+router.get(`${prefix}/:id`, BookmarksController.show);
 
 router.post(`${prefix}/`, function (req, res, next) {
   const { title, link, domain } = req.body;
