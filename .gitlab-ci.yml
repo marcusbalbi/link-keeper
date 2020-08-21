@@ -48,23 +48,23 @@ cache:
 #   dependencies: 
 #     - install_dependencies
 
-build-docker-image:
-  services:
-    - docker:19.03.0-dind
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
-  stage: docker
-  variables:
-    PORT: $PORT
-    LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
-  only:
-    - develop
-  tags:
-    - link-keeper-executor
-  script:
-    - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper-server .
-    - docker tag registry.gitlab.com/marcusbalbi/link-keeper-server registry.gitlab.com/marcusbalbi/link-keeper:latest
-    - docker push registry.gitlab.com/marcusbalbi/link-keeper:latest
+# build-docker-image:
+#   services:
+#     - docker:19.03.0-dind
+#   before_script:
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
+#   stage: docker
+#   variables:
+#     PORT: $PORT
+#     LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
+#   only:
+#     - develop
+#   tags:
+#     - link-keeper-executor
+#   script:
+#     - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper-server .
+#     - docker tag registry.gitlab.com/marcusbalbi/link-keeper-server registry.gitlab.com/marcusbalbi/link-keeper:latest
+#     - docker push registry.gitlab.com/marcusbalbi/link-keeper:latest
 
 deploy-local:
   before_script:
@@ -78,8 +78,8 @@ deploy-local:
     - tar cfz server.tgz * .env
     - scp server.tgz balbi@172.17.0.1:projetos/deploy/link-keeper/server
     - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; tar xfz server.tgz; /usr/bin/docker-compose up -d'
-  dependencies: 
-    - build-docker-image
+#  dependencies: 
+#    - build-docker-image
 
 # notification-success:
 #     stage: notification
