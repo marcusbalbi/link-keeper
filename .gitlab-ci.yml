@@ -20,15 +20,15 @@ cache:
 #   script:
 #     - npm install
 
-lint:
-  image: node:latest
-  stage: lint
-  tags:
-    - link-keeper-executor
-  script:
-    - npm run lint
-  dependencies: 
-    - install_dependencies
+# lint:
+#   image: node:latest
+#   stage: lint
+#   tags:
+#     - link-keeper-executor
+#   script:
+#     - npm run lint
+#   dependencies: 
+#     - install_dependencies
 
 # integration_test:
 #   services:
