@@ -8,8 +8,12 @@ export default {
     });
   },
   show(req: Request, res: Response) {
-    Bookmark.findById(req.params.id).then((bookmark) => {
-      res.json({ data: bookmark });
-    });
+    Bookmark.findById(req.params.id)
+      .then((bookmark) => {
+        res.json({ data: bookmark });
+      })
+      .catch((err) => {
+        res.status(400).json({ message: 'Bookmark Não encontrado' });
+      });
   },
 };
