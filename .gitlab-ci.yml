@@ -70,6 +70,8 @@ deploy-local:
   before_script:
     - sh ./.docker/prepare_local_server.sh
   stage: deploy
+  only:
+    - develop
   tags:
     - link-keeper-executor-deploy
   script:
