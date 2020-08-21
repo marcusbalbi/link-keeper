@@ -80,8 +80,8 @@ deploy-local:
     - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; tar xfz server.tgz;'
     - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; /usr/bin/docker-compose down; /usr/bin/docker-compose pull;'
     - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; /usr/bin/docker-compose up -d'
-dependencies: 
-  - build-docker-image
+  dependencies: 
+    - build-docker-image
 
 # notification-success:
 #     stage: notification
