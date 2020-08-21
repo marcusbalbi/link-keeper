@@ -77,7 +77,9 @@ deploy-local:
   script:
     - tar cfz server.tgz * .env
     - scp server.tgz balbi@172.17.0.1:projetos/deploy/link-keeper/server
-    - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; tar xfz server.tgz; /usr/bin/docker-compose up -d'
+    - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; tar xfz server.tgz;'
+    - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; /usr/bin/docker-compose down'
+    - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; /usr/bin/docker-compose up -d'
 #  dependencies: 
 #    - build-docker-image
 
