@@ -5,6 +5,8 @@ stages:
   - lint
   - test
   - docker
+  - deploy
+  - notification
 
 cache:
   paths:
@@ -28,42 +30,71 @@ lint:
   dependencies: 
     - install_dependencies
 
-integration_test:
+# integration_test:
+#   services:
+#     - mongo:latest
+#   image: node:latest
+#   stage: test
+#   variables:
+#     PORT: $PORT
+#     LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
+#     MONGO_HOST: $MONGO_HOST
+#     MONGO_PORT: $MONGO_PORT
+#     MONGO_DATABASE_NAME: 'link_keeper_integration_test'
+#   tags:
+#     - link-keeper-executor
+#   script:
+#     - npm run test
+#   dependencies: 
+#     - install_dependencies
+
+build-docker-image:
   services:
-    - mongo:latest
-  image: node:latest
-  stage: test
+    - docker:19.03.0-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
+  stage: docker
   variables:
     PORT: $PORT
     LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
-    MONGO_HOST: 'mongo'
-    MONGO_PORT: '27017'
-    MONGO_DATABASE_NAME: 'link_keeper_integration_test'
+  only:
+    - develop
   tags:
     - link-keeper-executor
   script:
-    - npm run test
-  dependencies: 
-    - install_dependencies
+    - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper .
+    - docker tag registry.gitlab.com/marcusbalbi/link-keeper registry.gitlab.com/marcusbalbi/link-keeper:latest
+    - docker push registry.gitlab.com/marcusbalbi/link-keeper:latest
 
-#build-docker-image:
-#  services:
-#    - docker:19.03.0-dind
-#    - mongo:latest
-#  before_script:
-#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
-#  stage: docker
-#  variables:
-#    PORT: $PORT
-#    LINK_ENCRYPT_KEY: $LINK_ENCRYPT_KEY
-#    MONGO_HOST: $MONGO_HOST
-#    MONGO_PORT: $MONGO_PORT
-#    MONGO_DATABASE_NAME: $MONGO_DATABASE_NAME
-#    MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
-#    MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
-#  tags:
-#    - link-keeper-executor
-#  script:
-#    - docker build -f .docker/Dockerfile -t registry.gitlab.com/marcusbalbi/link-keeper-server .
-#    - docker tag registry.gitlab.com/marcusbalbi/link-keeper-server registry.gitlab.com/marcusbalbi/link-keeper-server:latest
-#    - docker push registry.gitlab.com/marcusbalbi/link-keeper-server:latest
+deploy-local:
+  before_script:
+    - sh ./.docker/prepare_local_server.sh
+  stage: deploy
+  only:
+    - develop
+  tags:
+    - link-keeper-executor-deploy
+  script:
+    - tar cfz server.tgz * .env
+    - scp server.tgz balbi@172.17.0.1:projetos/deploy/link-keeper/server
+    - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; tar xfz server.tgz;'
+    - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; /usr/bin/docker-compose down; /usr/bin/docker-compose pull;'
+    - ssh balbi@172.17.0.1 'cd projetos/deploy/link-keeper/server; /usr/bin/docker-compose up -d'
+  dependencies: 
+    - build-docker-image
+
+# notification-success:
+#     stage: notification
+#     tags:
+#     - link-keeper-executor-deploy
+#     when: on_success
+#     script:
+#     - echo "tudo deu certo"
+
+# notification-failed:
+#     stage: notification
+#     tags:
+#     - link-keeper-executor-deploy
+#     when: on_failure
+#     script:
+#     - echo "deu errado"

@@ -1,20 +1,13 @@
-import express, { Response } from 'express';
+import express from 'express';
 import Bookmark from '@bookmarks/database/Bookmark';
+import BookmarksController from '@bookmarks/http/controllers/BookmarksController';
 
 const prefix = '/bookmarks';
 const router = express.Router();
 
-router.get(`${prefix}/`, function (req, res, next) {
-  Bookmark.find({}).then((list) => {
-    res.json({ data: list });
-  });
-});
+router.get(`${prefix}/`, BookmarksController.index);
 
-router.get(`${prefix}/:id`, function (req, res, next) {
-  Bookmark.findById(req.params.id).then((bookmark) => {
-    res.json({ data: bookmark });
-  });
-});
+router.get(`${prefix}/:id`, BookmarksController.show);
 
 router.post(`${prefix}/`, function (req, res, next) {
   const { title, link, domain } = req.body;

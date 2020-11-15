@@ -2,31 +2,28 @@ version: '3.7'
 services:
   mongo:
     image: mongo
-    container_name: link_keeper_mongodb
     networks: 
       - link_keeper_network
-    restart: always
-    env_file:
-    - ./.env
+    environment: 
+      - MONGO_HOST
+      - MONGO_PORT
     volumes: 
-      - "./mongodata:/data/db"
+      - "link_keeper_volume:/data/db"
   server:
-    build:
-      dockerfile: ./.docker/Dockerfile
-      context: .
-    image: marcusbalbi/link_keeper_server
-    container_name: link_keeper_server
+    image: registry.gitlab.com/marcusbalbi/link-keeper:latest
     networks: 
       - link_keeper_network
     ports:
       - "3008:3009"
-    env_file:
-    - ./.env
     environment:
+      - PORT
+      - MONGO_HOST
+      - MONGO_PORT
+      - MONGO_DATABASE_NAME
+      - LINK_ENCRYPT_KEY
       - TZ=America/Sao_Paulo
       - DEBIAN_FRONTEND=noninteractive
     volumes:
-      - "./:/var/www/app"
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
     depends_on: 
@@ -34,3 +31,6 @@ services:
 networks:
   link_keeper_network:
     driver: bridge
+volumes:
+  link_keeper_volume:
+    driver: local
